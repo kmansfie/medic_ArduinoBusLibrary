@@ -1,0 +1,17 @@
+
+
+#define START 0x00
+#define PACKET 0x01
+#define SOURCEADD 0x02
+#define POLL 0x03
+#define COLLECTCOMMAND 0x04
+#define COLLECTCOUNT1 0x05
+#define COLLECTCOUNT2 0x06
+#define COLLECTPACKET 0x07
+#define COLLECTCHECKSUM 0x08
+#define HANDLEESCAPE 0x20
+#define STARTPACK 0x7F
+#define STARTPOLL 0x8F
+#define ESCAPE 0x8E
+#define ACK 0x8D
+#define NAK 0x8C
