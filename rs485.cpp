@@ -50,6 +50,23 @@ extern "C" {
   unsigned char debbuf[256];
   unsigned int debptr = 0;
 
+  /******************************************************************************
+ * Function static void debug(unsigned char *, int)
+ *
+ * This function stores the debug information.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'c' - a character or any one byte information to store.
+ *                  'state'- the current state to store (e.g. START, POLL, ADDRESS, etc.)
+ *                  
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
+ 
   static void
   debug(unsigned char c, int state)
   {  
@@ -61,6 +78,21 @@ extern "C" {
     debptr &= 255;
   }
 
+ /******************************************************************************
+ * Function static void printDebug(void)
+ *
+ * This function prints the information or data stored in the debug buffer.
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *                  
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
   static void
   printDebug()
   {
@@ -80,6 +112,22 @@ extern "C" {
     Serial.println("");
   }
 
+/******************************************************************************
+ * Function void setResponse(int, int, int)
+ *
+ * This function sets the feedback information to be send in the master device.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'deviceID' - the address of destination device (e.g. master device).
+ *                  'command' - command acknowledgement to be send in master device.
+ *                  'status' - status of the process.
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
   void
   setResponse(int deviceID, int command, int status)
   {
@@ -176,7 +224,22 @@ extern "C" {
   {
 
   }
-
+  
+/******************************************************************************
+ * Function void serial1Handler(unsigned char )
+ *
+ * This function handles the received data from the Serial Communication.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'RXByte' - the received data from Serial Communication
+ *                  
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
   void
   serial1Handler(unsigned char RXByte)
   {

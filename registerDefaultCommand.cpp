@@ -18,8 +18,24 @@ int message;
 unsigned char packetBuffer[128];
 unsigned int packetBufferSize;
 
+/******************************************************************************
+ * Function static void getModuleType(unsigned char *)
+ *
+ * This function gets the module type upon request by the master device. It is register on the command list.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'receivedData' - a buffer of data sent from the master device.
+ *                  
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
+ 
 static void 
-getModuleName(unsigned char *receivedData)
+getModuleType(unsigned char *receivedData)
 {
 
   Serial.println("Get Module Type");
@@ -40,6 +56,21 @@ getModuleName(unsigned char *receivedData)
   message = 1;
 }
 
+/******************************************************************************
+ * Function static void getVersion(unsigned char *)
+ *
+ * This function gets the version of the module upon request by the master device. It is register on the command list.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'receivedData' - a buffer of data sent from the master device.
+ *                  
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 static void 
 getVersion(unsigned char *receivedData)
 {
@@ -67,6 +98,21 @@ static map_t month_lookup[] = { {"Jan", 1}, {"Feb", 2}, {"Mar", 3}, {"Apr", 4},
                                 
 #define MONTHCOUNT (sizeof(month_lookup)/sizeof(map_t))
 
+/******************************************************************************
+ * Function static void getDate(unsigned char *)
+ *
+ * This function gets the current date when the module compiled. It is register on the command list.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'receivedData' - a buffer of data sent from the master device.
+ *                  
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 static void 
 getDate(unsigned char *receivedData)
 {
@@ -108,6 +154,21 @@ getDate(unsigned char *receivedData)
   message = 1;
 }
 
+/******************************************************************************
+ * Function static void getModuleType(unsigned char *)
+ *
+ * This function gets the time when the module compiled.It is register on the command list.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'receivedData' - a buffer of data sent from the master device.
+ *                  
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 static void 
 getTime(unsigned char *receivedData)
 {
@@ -130,9 +191,23 @@ getTime(unsigned char *receivedData)
   message = 1;
 }
 
+/******************************************************************************
+ * Function void registerDefaultCommand(void)
+ *
+ * This function registers the default module on the command list buffer.
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *                              
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 void registerDefaultCommand()
 {
-  registerCommand(0x01, getModuleName);
+  registerCommand(0x01, getModuleType);
   registerCommand(2, getVersion);
   registerCommand(3, getDate);
   registerCommand(4, getTime);

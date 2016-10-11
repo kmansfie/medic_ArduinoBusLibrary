@@ -10,6 +10,20 @@ static unsigned int checkSum;
 static unsigned char packetSize;
 static unsigned char buffer[128];
 
+/******************************************************************************
+ * Function static void insertValueToBuffer(unsigned char)
+ *
+ * This function stores the value into the buffer.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'value' - data value to store in buffer
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 static void 
 insertValueToBuffer(unsigned char value)
 {
@@ -35,6 +49,22 @@ processPacketData(unsigned char packetData)
 }
 #endif
 
+/******************************************************************************
+ * Function int getFormattedPacket(Packet *, unsigned char *)
+ *
+ * This function formats the given data to a rs485 specific protocol.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'packet' - a Packet data structure that holds the information of the packet to send.
+ *                  'packetBuffer' - a buffer to hold the formatted data. The data contained in this 
+ *                                   buffer will be sent to the master.
+ *                  
+ * Output:          size of buffer
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 int getFormattedPacket(Packet * packet, unsigned char * packetBuffer)
 {
   

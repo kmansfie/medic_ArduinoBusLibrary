@@ -4,6 +4,20 @@
 
 static unsigned char isEscaped = FALSE;
 
+/******************************************************************************
+ * Function unsigned char getEquivalentChar(unsigned char)
+ *
+ * This function gets the special character .
+ *
+ * PreCondition:    None
+ *
+ * Input:           'c' - character or the key to get that the special character.
+ *                  
+ * Output:          special character (e.g. 0x7f, 0x8d, 0x8f)
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 static unsigned char 
 getEquivalentChar(unsigned char c)
 {
@@ -27,6 +41,22 @@ getEquivalentChar(unsigned char c)
   return equivalentChar;
 }
 
+/******************************************************************************
+ * Function short escapedToSpecialChar(unsigned char)
+ *
+ * This function converts the escaped character to special character (e.g. 0x8F 0x01 -> 0x7F) .
+ *
+ * PreCondition:    None
+ *
+ * Input:           'c' - character to convert to special character.
+ *                  
+ * Output:          -1 - the input is a flag byte. Need to call this function again 
+ *                       and input the character or key to get the special character.
+ *                  0x7f, 0x8d, 0x8f - special character.
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 short 
 escapedToSpecialChar(unsigned char c)
 {
@@ -46,6 +76,21 @@ escapedToSpecialChar(unsigned char c)
   return character;
 }
 
+
+/******************************************************************************
+ * Function unsigned short specialToEscapedChar(unsigned char)
+ *
+ * This function converts the special character to escaped character (e.g. 0x7F -> 0x8F 0x01  ) .
+ *
+ * PreCondition:    None
+ *
+ * Input:           'c' - character to convert to escaped character.
+ *                  
+ * Output:          escaped character
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
 unsigned short
 specialToEscapedChar(unsigned char c)
 {

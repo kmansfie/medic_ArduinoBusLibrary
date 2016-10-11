@@ -13,12 +13,50 @@ extern "C" {
 static commandFuncPtr commandFuncPtrHolder[COMMANDQUEUEMAX];
 
 
-void commandInit()
+/******************************************************************************
+ * Function void commandInit(void)
+ *
+ * Initialize the command holder.
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *                  
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
+ 
+void 
+commandInit()
 {
   memset(commandFuncPtrHolder, 0, COMMANDQUEUEMAX);
 }
 
-char registerCommand(int command, commandFuncPtr commandFunc)
+
+/******************************************************************************
+ * Function char registerCommand(int, commandFuncPtr)
+ *
+ * This function stores the pointer of the functions to be used in operation.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'command' - command code or number. This is the key for calling the command function(commandFunc).
+ *                  'commandFunc' - pointer of function that to be stored in an array.
+ *                  
+ * Output:          error result
+ *                  COMMANDOK    -   0
+ *                  COMMANDEXIST -  -1
+ *                  COMMANDGTMAX -  -2
+ *                  COMMANDNULL  -  -3 
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
+ 
+char 
+registerCommand(int command, commandFuncPtr commandFunc)
 {
   char errorResult;
   
@@ -39,49 +77,49 @@ char registerCommand(int command, commandFuncPtr commandFunc)
   else
   {
     commandFuncPtrHolder[command] = commandFunc;
-	Serial.print("Register Command: 0x");
-	Serial.println(command, HEX);
+    Serial.print("Register Command: 0x");
+    Serial.println(command, HEX);
   
     Serial.print("Command is ");
-	Serial.println(( commandFuncPtrHolder[command]  == NULL )? "NULL":"OK");
-	
+    Serial.println(( commandFuncPtrHolder[command]  == NULL )? "NULL":"OK");
 	
     errorResult = COMMANDOK;
   }
   return errorResult;  
 }
 
-char processCommand(int command, unsigned char *receivedData)
+/******************************************************************************
+ * Function char processCommand(int, unsigned char *)
+ *
+ * This function calls the function that is inside the array with the element 'command'.
+ *
+ * PreCondition:    None
+ *
+ * Input:           'command' - command code or number. This is the key for calling the command function(commandFunc).
+ *                  'receivedData' - data received from the master device.
+ *                  
+ * Output:          error result
+ *                  error    -   -1
+ *                  no error -    0
+ *
+ * Side Effects:    None
+ *
+ *****************************************************************************/
+char 
+processCommand(int command, unsigned char *receivedData)
 {
   char errorResult = -1;
-
-  //kputString("processCommand: 0x");
-  //putInt(command);
-  //kputString(" 0x");
-  //putInt(commandFuncPtrHolder[command]);
-  //kputString("\n\r");
-  
-  #ifdef UNITTEST
-    //printf("Process Command:0x%02X\n", command);
-  #endif
   
   if(commandFuncPtrHolder[command] != 0)
   {
-	Serial.print("Com: ");
+    Serial.print("Com: ");
     Serial.println(command, HEX);
-  
-    //kputString("processCommand: Call command\r\n");
+
     (*commandFuncPtrHolder[command])(receivedData);
     
     errorResult = 0;
   }
   
-  if(commandFuncPtrHolder[command] == NULL)
-  {
-	  Serial.print("Command ");
-	  Serial.print(command, HEX);
-	  Serial.println(" is NULL.");
-  }
   return errorResult;
 }
 
